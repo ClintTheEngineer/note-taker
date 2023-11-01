@@ -1,23 +1,27 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Login } from './components/Login';
 import { NoteList } from './components/NoteList';
 import { NoteForm } from './components/NoteForm';
 
-const App: React.FC = () => {
-  const [count, setCount] = useState(0)
+interface AppProps {
+  component: typeof Route
+}
 
+const App: React.FC<AppProps> = () => {
   return (
     <Router>
       <div className="App">
-        <Switch>
-          <Route path="/" exact component={Login} />
-          <Route path="/notes" exact component={NoteList} />
-          <Route path="/notes/:id" component={NoteForm} />
-        </Switch>
+        <Routes>
+          <Route path="/" Component={Login} />
+          <Route path="/notes" Component={NoteList} />
+          <Route path="/notes/:id" Component={NoteForm} />
+        </Routes>
       </div>
     </Router>
-  )
-}
+  );
+};
 
-export default App
+export default App;
+
+export { AppProps }; // Exporting the AppProps type for potential future use
